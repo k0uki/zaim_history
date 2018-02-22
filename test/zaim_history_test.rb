@@ -5,7 +5,12 @@ class ZaimHistoryTest < Minitest::Test
     refute_nil ::ZaimHistory::VERSION
   end
 
-  def test_it_does_something_useful
-    assert false
+  def test_client
+    puts "mail"
+    mail = gets.chomp
+    puts "pass"
+    pass = gets.chomp
+    client = ::ZaimHistory::Client.new(mail, pass)
+    client.login
   end
 end
