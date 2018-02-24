@@ -34,4 +34,5 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "mechanize", "~> 2.7.5"
   spec.add_runtime_dependency "thor", "~> 0.20.0"
+  spec.add_runtime_dependency "rack", "~> 2.0.4"  
 end

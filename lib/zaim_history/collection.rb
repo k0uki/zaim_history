@@ -1,6 +1,8 @@
 require 'csv'
 
 module ZaimHistory
+  class InvalidFormatError < StandardError; end
+  
   class Collection
     attr_accessor :records
 
@@ -8,6 +10,14 @@ module ZaimHistory
 
     def initialize(records=[])
       self.records = records
+    end
+
+    def print_with_format(format)
+      case format
+        when "terminal" then print_to_terminal
+        when "csv" then print_csv
+        else raise InvalidFormatError
+      end
     end
 
     def print_to_terminal

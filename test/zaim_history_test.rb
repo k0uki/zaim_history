@@ -12,5 +12,7 @@ class ZaimHistoryTest < Minitest::Test
     pass = gets.chomp
     client = ::ZaimHistory::Client.new(mail, pass)
     client.login
+    collection = client.fetch_history("201802")
+    collection.print_to_terminal
   end
 end

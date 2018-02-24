@@ -13,6 +13,7 @@ module ZaimHistory
     end
 
     def login
+      # TODO: ログイン失敗の検出
       guard_mechanize_error('login') do
         auth_page = agent.get("https://auth.zaim.net/")
         login_form = auth_page.form_with(id: 'UserLoginForm')
@@ -27,7 +28,7 @@ module ZaimHistory
       end
     end
 
-    def fetch_history(month="")
+    def fetch_history(month)
       guard_mechanize_error('fetch') do
         money_page = agent.get(history_url(month))
         result = Collection.new
