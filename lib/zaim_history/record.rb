@@ -18,6 +18,10 @@ module ZaimHistory
       "#{date}|#{category1}|#{category2}|#{price}|#{from_account}|#{to_account}|#{place}|#{comment}"
     end
 
+    def to_csv_record
+      [date, category1, category2, price, from_account, to_account, place, comment]
+    end
+
     private
 
     def chomp_data(data)

@@ -21,6 +21,21 @@ EOS
     $stdout = STDOUT
   end
 
+  def test_csv_print
+    $stdout = StringIO.new
+    c = ZaimHistory::Collection.new(create_records)
+    c.print_csv
+    expected = <<EOS
+日付,カテゴリ1,カテゴリ2,金額,出金,入金,お店,メモ
+2月17日（土）,住まい,家賃,\"¥100,000,00\",銀行,,,今月分
+2月17日（土）,住まい,家賃,\"¥100,000,00\",銀行,,,今月分
+2月17日（土）,住まい,家賃,\"¥100,000,00\",銀行,,,今月分
+EOS
+
+    assert_equal(expected, $stdout.string)
+    $stdout = STDOUT
+  end
+
   private
   def create_records
     records = []
