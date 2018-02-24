@@ -1,8 +1,7 @@
 require 'csv'
 
 module ZaimHistory
-  class InvalidFormatError < StandardError; end
-  
+
   class Collection
     attr_accessor :records
 
@@ -16,7 +15,7 @@ module ZaimHistory
       case format
         when "terminal" then print_to_terminal
         when "csv" then print_csv
-        else raise InvalidFormatError
+        else false
       end
     end
 

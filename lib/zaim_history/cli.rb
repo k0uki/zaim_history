@@ -7,7 +7,7 @@ module ZaimHistory
 
     desc "fetch", "fetch history from zaim"
     option :month, desc: "fetch month", type: :numeric, default: ""
-    option :format, desc: "result format", type: :string, default: "terminal"
+    option :format, desc: "result format", type: :string, enum:['terminal', 'csv'],  default: 'terminal'
     def fetch
       unless mail = options[:mail]
         puts "mail:"
@@ -17,6 +17,7 @@ module ZaimHistory
         puts "pass:"
         password = $stdin.gets.chomp
       end
+
       client = Client.new(mail, password)
       client.login
 
@@ -25,8 +26,8 @@ module ZaimHistory
       else
         warn(client.error)
       end
-    rescue InvalidFormatError => ex
-      warn("指定できないフォーマットです")
+    rescue LoggedInFailed
+      warn('zaimへのログインに失敗しました。メールアドレスかパスワードが間違っています')
     end
   end
 end
