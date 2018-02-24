@@ -23,9 +23,9 @@ module ZaimHistory
       @home_page = agent.get(url)
     end
 
-    def history
+    def fetch_history
       money_page = @home_page.link_with(href: "/money").click
-      result = []
+      result = Collection.new
       money_page.search('table.list tr').each do |tr|
         if date = tr.children.at('.date .edit-money')
           r = {}
@@ -33,14 +33,15 @@ module ZaimHistory
           r[:category1] = tr.children.at('.category span').attribute('alt').value
           r[:category2] = tr.children.at('.category .edit-money').content
           r[:price] = tr.children.at('.price .edit-money').content
-          r[:from_acount] = tr.children.at('.from_account .account-sm')&.attribute('alt')&.value
+          r[:from_account] = tr.children.at('.from_account .account-sm')&.attribute('alt')&.value
           r[:to_account] = tr.children.at('.to_account .account-sm')&.attribute('alt')&.value
           r[:place] = tr.children.at('.place .edit-money span')&.attribute('title')&.value
           r[:comment] = tr.children.at('div.comment .edit-money span')&.attribute('title')&.value
-          result << chomp_result(r)
+
+          result.add(Record.new(r))
         end
       end
-      result.to_json
+      result
     end
 
     private
@@ -48,10 +49,6 @@ module ZaimHistory
       @agent ||= Mechanize.new
       @agent.log = Logger.new $stderr
       @agent
-    end
-
-    def chomp_result(result)
-      result.map {|key,val| [key, val&.chomp]}.to_h
     end
   end
 end
