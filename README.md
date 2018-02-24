@@ -1,41 +1,35 @@
 # ZaimHistory
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/zaim_history`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Web版Zaimをスクレイピングして入力履歴を表示します。出力フォーマットは表形式、CSVから選択することができます。
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'zaim_history'
 ```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install zaim_history
+bundle install
+```
+で依存しているgemをインストールすることができます
 
 ## Usage
 
-TODO: Write usage instructions here
+当月の履歴取得は下記コマンドで行うことができます
+```
+exe/zaim_history fetch
+```
+メールアドレス、パスワードはオプションとして渡すことができます。取得する年月を変更する場合はmonthオプションで指定してください。
+```
+exe/zaim_history fetch --month=201802
+```
 
-## Development
+CSV出力する場合は、formatオプションで指定してください。ファイルに保存する場合はリダイレクトを利用できます。
+```
+exe/zaim_history fetch --month=201802 --format=csv --mail=メールアドレス --password=パスワード > 201802.csv
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/zaim_history. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
+その他オプションはhelpコマンドで確認できます
+```
+exe/zaim_history help fetch
+```
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
