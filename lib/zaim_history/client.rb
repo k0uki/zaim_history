@@ -9,9 +9,12 @@ module ZaimHistory
   class Client
     attr_reader :error
 
-    def initialize(mail, password)
+    def initialize(mail, password, debug=false)
       @mail = mail
       @password = password
+      if debug
+        agent.log = Logger.new $stderr
+      end
     end
 
     def login
@@ -77,8 +80,7 @@ module ZaimHistory
 
     def agent
       @agent ||= Mechanize.new
-      @agent.log = Logger.new $stderr
-      @agent
     end
+
   end
 end

@@ -2,8 +2,9 @@ require 'thor'
 
 module ZaimHistory
   class Cli < Thor
-    class_option :mail, type: :string, alias: :m
-    class_option :password, type: :string, alias: :p
+    class_option :mail, type: :string, aliases: :m
+    class_option :password, type: :string, aliases: :p
+    class_option :debug, type: :boolean, aliases: :d
 
     desc "fetch", "fetch history from zaim"
     option :month, desc: "fetch month", type: :numeric, default: ""
@@ -18,7 +19,7 @@ module ZaimHistory
         password = $stdin.gets.chomp
       end
 
-      client = Client.new(mail, password)
+      client = Client.new(mail, password, options[:debug])
       client.login
 
       if result = client.fetch_history(options[:month])
