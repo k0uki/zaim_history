@@ -9,9 +9,15 @@ bundle install
 ```
 で依存しているgemをインストールすることができます
 
+gemとしてインストールすることも可能です。
+```
+gem build zaim_history
+gem install zaim_history-0.1.0.gem
+```
+
 ## Usage
 
-当月の履歴取得は下記コマンドで行うことができます
+当月の履歴取得は下記コマンドで行うことができます。gemとしてインストールした場合、"exe/"は不要です。
 ```
 exe/zaim_history fetch
 ```
