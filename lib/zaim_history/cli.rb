@@ -16,7 +16,7 @@ module ZaimHistory
       end
       unless password = options[:password]
         puts "pass:"
-        password = $stdin.gets.chomp
+        password = STDIN.noecho(&:gets).chomp
       end
 
       client = Client.new(mail, password, options[:debug])
