@@ -1,3 +1,4 @@
+require "io/console"
 require 'thor'
 
 module ZaimHistory
